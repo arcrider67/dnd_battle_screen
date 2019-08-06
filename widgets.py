@@ -19,4 +19,5 @@ class Block(pygame.sprite.Sprite):
        self.rect = self.image.get_rect()
 
 
-class Block_text()
+class Block_text(Block):
+    pass
