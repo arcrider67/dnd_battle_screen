@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-from widgets import Block
+from widgets import *
 
 
 def setup_background():
@@ -18,24 +18,35 @@ def setup_background():
             y = y + pic_height
         y = 0
         x = x + pic_width
-    pygame.display.flip()
+
+
+def button_feedback(self, event, clock):
+    print("button pressed")
+
+def sprite_handle():
+    for sprite in all_sprites_list:
+        if hasattr(event, "pos"):
+            focussed = sprite.rect.collidepoint(event.pos)
+            if (focussed or sprite.focussed) and sprite.handle_event(event, pygame.time.Clock()):
+                break
 
 
 pygame.init()
 screen = pygame.display.set_mode((750, 500), RESIZABLE)
-pic=pygame.image.load("dark_wood_seamless.jpg")
+pic=pygame.image.load("assets/dark_wood_seamless.jpg")
 
 setup_background()
 
 all_sprites_list = pygame.sprite.Group()
 
-box = Block(Color(0,0,200), 100,100)
+box = Block(Color(0,0,200), 100,100, 100, 100)
 all_sprites_list.add(box)
-all_sprites_list.draw(screen)
 
-#screen.blit(box, (0,0))
+button = Button(Color(0,0,200), 732,244, 10, 10, button_feedback, "welcome to the club now")
+all_sprites_list.add(button)
 
-
+text = Block_text("First text")
+all_sprites_list.add(text)
 done = False
 
 while not done:
@@ -48,8 +59,12 @@ while not done:
                     #redraw images
                     setup_background()
 
+        screen.blit(box.image, box.rect)
         all_sprites_list.update()
+        sprite_handle()
         all_sprites_list.draw(screen)
 
 
         pygame.display.flip()
+
+
