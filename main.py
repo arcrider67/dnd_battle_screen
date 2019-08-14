@@ -77,7 +77,7 @@ text = Block_text("Counter: 0", x=650, y=0)
 all_sprites_list.add(text)
 battle_screen.add(text)
 
-init_screen("battle_screen")
+battle_screen = init_screen("battle_screen")
 
 current_sprites.add(start_screen)
 

@@ -6,8 +6,17 @@ class Block(pygame.sprite.DirtySprite):
 
     # Constructor. Pass in the color of the block,
     # and its x and y position
-    def __init__(self, color, width, height, x, y, handler=None):
+    def __init__(self, color=None, width=None, height=None, x=None, y=None, handler=None, properties=None):
        # Call the parent class (Sprite) constructor
+
+       if properties:
+           color = properties["Color"]
+           width = properties["Width"]
+           height = properties["Height"]
+           x = properties["X"]
+           y = properties["Y"]
+           handler = properties["Handler"]
+       
        pygame.sprite.DirtySprite.__init__(self)
 
        
@@ -57,9 +66,13 @@ class Block(pygame.sprite.DirtySprite):
 
 class Block_text(Block):
 
-    def __init__(self, text, color=Color(255,255,255), width=100, height=100, x=50, y=50, handler=None, properties=None):
+    def __init__(self, text=None, color=Color(255,255,255), width=100, height=100, x=50, y=50, handler=None, properties=None):
         
-        Block.__init__(self,color, width,height, x, y)
+        if properties:
+            text = properties["Text"]
+
+
+        Block.__init__(self,color, width,height, x, y, properties=properties)
         if text:
            self.render_text(text)
 
@@ -84,11 +97,16 @@ class Block_text(Block):
 
 class Button(Block):
 
-    def __init__(self, color, width, height, x, y, handler=None, text=None, properties=None):
+    def __init__(self, color=None, width=None, height=None, x=None, y=None, handler=None, text=None, properties=None):
+
+        if properties:
+            text = properties["Text"]
+
+
 
         self.image_file = pygame.image.load("assets/wooden-sign.png").convert_alpha()
         self.image = self.image_file
-        Block.__init__(self, color, width, height, x, y, handler)
+        Block.__init__(self, color, width, height, x, y, handler, properties)
 
         if text:
            self.render_text(text)
