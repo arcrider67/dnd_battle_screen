@@ -1,6 +1,32 @@
 import pygame
 from pygame.locals import *
 from pygame.font import Font
+import json
+from handlers import handler_dict
+
+def init_sprite_group(screen_name = None):
+    
+    group = pygame.sprite.Group()
+
+    with open("assets/"+str(screen_name)+".json") as json_file:
+        data = json.load(json_file)
+        for ele in data["Elements"]:
+            create_sprite(ele, group)
+
+    
+    
+
+    return group
+
+
+
+def create_sprite(properties, group):
+    if properties["Type"] == "TextBox":
+        item = Block_text(properties=properties)
+    elif properties["Type"] == "Button":
+        item = Button(properties=properties)
+    group.add(item)
+
 
 class Block(pygame.sprite.DirtySprite):
 
@@ -38,7 +64,11 @@ class Block(pygame.sprite.DirtySprite):
        self.background = self.image.copy()
 
        self.focussed = False
-       self.handler = handler
+
+       if handler != None and handler != 'None':
+           self.handler = handler_dict[handler]
+
+
        self.pressed_time = 0 
        self.long_pressed = False
       

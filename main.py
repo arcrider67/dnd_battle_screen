@@ -1,7 +1,8 @@
 import pygame
 from pygame.locals import *
 from widgets import *
-from screens import *
+from events import event_queue
+
 
 def setup_background():
 
@@ -23,24 +24,12 @@ def setup_background():
         x = x + pic_width
     return background
 
-
-def button_feedback(self, event, clock):
-    count = text.get_text()
-    count = count.split()
-    count[1] = int(count[1])+1
-    
-    new_text = count[0]+" "+str(count[1])
-    text.set_text(new_text)
-    set_screen()
-    
-
 def set_screen(new_screen=None):
     global screen
     global current_sprites
-    current_sprites.clear(screen, background)
+    current_sprites.clear(screen, background) 
     current_sprites.remove(current_sprites)
     current_sprites.add(battle_screen)
-
 
 
 def sprite_handle():
@@ -49,6 +38,9 @@ def sprite_handle():
             focussed = sprite.rect.collidepoint(event.pos)
             if (focussed or sprite.focussed) and sprite.handle_event(event, pygame.time.Clock()):
                 break
+
+event_dict = {"set_screen":set_screen}
+
 
 
 pygame.init()
@@ -66,7 +58,7 @@ current_sprites = pygame.sprite.Group()
 box = Block(Color(0,0,200), width=100,height=100, x=100, y=100)
 all_sprites_list.add(box)
 
-start_button = Button(Color(0,0,200), 732,244, 10, 10, button_feedback, "Start Battle")
+start_button = Button(Color(0,0,200), 732,244, 10, 10, "button_feedback", "Start Battle")
 all_sprites_list.add(start_button)
 start_screen.add(start_button)
 
@@ -77,7 +69,7 @@ text = Block_text("Counter: 0", x=650, y=0)
 all_sprites_list.add(text)
 battle_screen.add(text)
 
-battle_screen = init_screen("battle_screen")
+battle_screen = init_sprite_group("battle_screen")
 
 current_sprites.add(start_screen)
 
@@ -92,6 +84,10 @@ while not done:
                     screen=pygame.display.set_mode(event.dict['size'],RESIZABLE)
                     #redraw images
                     setup_background()
+
+        if len(event_queue):
+            for event in event_queue:
+                event_dict[event[0]](event[1:])
 
         current_sprites.update()
         sprite_handle()
