@@ -19,9 +19,10 @@ def round_up():
     round = Round
     round += 1
     Round = round
+    print(Round)
     
 
-handler_dict = {"button_feedback": button_feedback}
+handler_dict = {"button_feedback": button_feedback, "round_up_e":round_up_e}
 
 
 

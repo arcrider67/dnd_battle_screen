@@ -86,8 +86,9 @@ while not done:
                     setup_background()
 
         if len(event_queue):
-            for event in event_queue:
-                event_dict[event[0]](event[1:])
+            event = event_queue.pop(0)
+            event_dict[event[0]](event[1:])
+                
 
         current_sprites.update()
         sprite_handle()

@@ -42,6 +42,7 @@ class Block(pygame.sprite.DirtySprite):
            x = properties["X"]
            y = properties["Y"]
            handler = properties["Handler"]
+           print(handler)
        
        pygame.sprite.DirtySprite.__init__(self)
 
@@ -55,8 +56,11 @@ class Block(pygame.sprite.DirtySprite):
            self.image = pygame.Surface(size).convert()
            self.image.fill(color)
 
-
-
+       if handler == None:
+           self.has_handler = False
+       else:
+           self.has_handler = True
+      
        self.rect = self.image.get_rect()
        self.rect.top = y
        self.rect.left = x
@@ -65,7 +69,7 @@ class Block(pygame.sprite.DirtySprite):
 
        self.focussed = False
 
-       if handler != None and handler != 'None':
+       if self.has_handler and handler != None and handler != 'None':
            self.handler = handler_dict[handler]
 
 
@@ -136,7 +140,7 @@ class Button(Block):
 
         self.image_file = pygame.image.load("assets/wooden-sign.png").convert_alpha()
         self.image = self.image_file
-        Block.__init__(self, color, width, height, x, y, handler, properties)
+        Block.__init__(self, color, width, height, x, y, handler, properties=properties)
 
         if text:
            self.render_text(text)
