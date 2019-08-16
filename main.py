@@ -24,12 +24,20 @@ def setup_background():
         x = x + pic_width
     return background
 
+
+
+
+
 def set_screen(new_screen=None):
     global screen
     global current_sprites
     current_sprites.clear(screen, background) 
     current_sprites.remove(current_sprites)
     current_sprites.add(battle_screen)
+
+
+def update_round(bool1):
+    print("in test")
 
 
 def sprite_handle():
@@ -39,7 +47,7 @@ def sprite_handle():
             if (focussed or sprite.focussed) and sprite.handle_event(event, pygame.time.Clock()):
                 break
 
-event_dict = {"set_screen":set_screen}
+event_dict = {"set_screen":set_screen, "update_round":update_round}
 
 
 
@@ -87,6 +95,7 @@ while not done:
 
         if len(event_queue):
             event = event_queue.pop(0)
+            print(event[0])
             event_dict[event[0]](event[1:])
                 
 

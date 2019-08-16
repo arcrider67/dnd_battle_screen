@@ -1,18 +1,45 @@
 {
-    
-    "screenName":"Battle Screen",
-    "Elements":[
-        {"Name":"Counter_TextBox","Type":"TextBox","Text": "Round: ", "Color":[255,255,255], "Width":100, "Height":100, "X":650, "Y":0, "Handler":"None"},
-        {"Name":"incremant_Button","Type":"Button","Text":"Round up", "Color":[255,255,255], "Width":732, "Height":244, "X":0, "Y":200, "Handler":"round_up_e"}
 
-
-
-
-
-
-
-
-
-
+  "battle_screen": {
+    "Elements": [
+      {
+        "Name": "Counter_TextBox",
+        "Type": "TextBox",
+        "Text": "Round: 0",
+        "Color": [ 255, 255, 255 ],
+        "Width": 100,
+        "Height": 100,
+        "X": 650,
+        "Y": 0,
+        "Handler": "None"
+      },
+      {
+        "Name": "incremant_Button",
+        "Type": "Button",
+        "Text": "Round up",
+        "Color": [ 255, 255, 255 ],
+        "Width": 732,
+        "Height": 244,
+        "X": 0,
+        "Y": 200,
+        "Handler": "round_up_e"
+      }
     ]
+  },
+  "top_bar": {
+    "Elements": [
+      {
+        "Name": "end_turn",
+        "Type": "Button",
+        "Text": "End Turn",
+        "Color": [ 255, 255, 255 ],
+        "Width": 100,
+        "Height": 50,
+        "X": 0,
+        "Y": 0,
+        "Handler": "end_turn"
+
+      }
+    ]
+  }
 }

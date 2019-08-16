@@ -20,7 +20,7 @@ def round_up():
     round += 1
     Round = round
     print(Round)
-    
+    event_queue.append(["event_test", True, True])
 
 handler_dict = {"button_feedback": button_feedback, "round_up_e":round_up_e}
 
